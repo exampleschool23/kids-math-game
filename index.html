@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Space Math Game</title>
+  <title>Kosmik Matematika O‘yini</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -171,9 +171,7 @@
       gap: 12px;
     }
 
-    .progress-wrap {
-      flex: 1;
-    }
+    .progress-wrap { flex: 1; }
 
     .progress-label {
       font-weight: 800;
@@ -252,32 +250,32 @@
 
   <main class="game">
     <div class="top-bar">
-      <button class="circle-button" aria-label="Home">🏠</button>
-      <button class="circle-button" aria-label="Sound">🔊</button>
+      <button class="circle-button" aria-label="Bosh sahifa">🏠</button>
+      <button class="circle-button" aria-label="Ovoz">🔊</button>
     </div>
 
     <section class="question-card">
-      <div class="question-label">Solve the equation</div>
+      <div class="question-label">Misolni yeching</div>
       <div id="currentQuestion" class="question">6+5</div>
     </section>
 
-    <div class="section-title">1. Tap the equation</div>
+    <div class="section-title">1. Misolni tanlang</div>
     <section id="equations" class="grid"></section>
 
-    <div id="feedback" class="feedback info">Choose 6+5, then choose 11 🚀</div>
+    <div id="feedback" class="feedback info">6+5 ni tanlang, keyin 11 ni bosing 🚀</div>
 
-    <div class="section-title">2. Tap the correct answer</div>
+    <div class="section-title">2. To‘g‘ri javobni tanlang</div>
     <section id="answers" class="grid"></section>
 
     <section class="bottom">
       <div class="progress-wrap">
-        <div class="progress-label">Progress</div>
+        <div class="progress-label">Natija</div>
         <div class="progress-bg"><div id="progressFill" class="progress-fill"></div></div>
       </div>
       <div id="score" class="score">0 / 9</div>
     </section>
 
-    <button class="reset" onclick="resetGame()">Play again</button>
+    <button class="reset" onclick="resetGame()">Qayta o‘ynash</button>
   </main>
 
   <script>
@@ -294,7 +292,7 @@
     ];
 
     const answers = [13, 11, 15, 7, 14, 9, 10, 8, 12];
-    let currentIndex = 4; // Starts from 6+5 like the example
+    let currentIndex = 4;
     let selectedQuestion = null;
     let solved = new Set();
     let canAnswer = false;
@@ -315,7 +313,7 @@
         const button = document.createElement('button');
         button.className = 'equation-card';
         button.textContent = question.text;
-        button.setAttribute('aria-label', `Equation ${question.text}`);
+        button.setAttribute('aria-label', `${question.text} misoli`);
 
         if (selectedQuestion === index) button.classList.add('selected-question');
         if (solved.has(index)) button.classList.add('correct');
@@ -329,7 +327,7 @@
         const button = document.createElement('button');
         button.className = 'answer-card';
         button.textContent = answer;
-        button.setAttribute('aria-label', `Answer ${answer}`);
+        button.setAttribute('aria-label', `${answer} javobi`);
         button.onclick = () => selectAnswer(answer, button);
         answersEl.appendChild(button);
       });
@@ -339,20 +337,20 @@
 
     function selectQuestion(index) {
       if (solved.has(index)) {
-        showFeedback('success', 'Already solved ✅');
+        showFeedback('success', 'Bu misol yechilgan ✅');
         return;
       }
 
       selectedQuestion = index;
       currentIndex = index;
       canAnswer = true;
-      showFeedback('info', `Good! Now choose ${questions[index].answer}`);
+      showFeedback('info', `Zo‘r! Endi ${questions[index].answer} javobini tanlang`);
       render();
     }
 
     function selectAnswer(answer, button) {
       if (!canAnswer || selectedQuestion === null) {
-        showFeedback('error', 'Tap an equation first 👆');
+        showFeedback('error', 'Avval misolni tanlang 👆');
         button.classList.add('wrong');
         setTimeout(() => button.classList.remove('wrong'), 450);
         return;
@@ -364,7 +362,7 @@
         button.classList.add('correct');
         solved.add(selectedQuestion);
         canAnswer = false;
-        showFeedback('success', `Great job! ${current.text} = ${answer} ✅`);
+        showFeedback('success', `Ajoyib! ${current.text} = ${answer} ✅`);
         createConfetti();
 
         setTimeout(() => {
@@ -373,7 +371,7 @@
         }, 900);
       } else {
         button.classList.add('wrong');
-        showFeedback('error', 'Oops! Try again! ❌');
+        showFeedback('error', 'Xato! Yana urinib ko‘ring ❌');
         setTimeout(() => button.classList.remove('wrong'), 500);
       }
 
@@ -384,14 +382,14 @@
       const nextIndex = questions.findIndex((_, index) => !solved.has(index));
       if (nextIndex === -1) {
         selectedQuestion = null;
-        showFeedback('success', 'Amazing! You finished all questions! 🌟');
+        showFeedback('success', 'Barakalla! Barcha misollar yechildi! 🌟');
         return;
       }
 
       selectedQuestion = nextIndex;
       currentIndex = nextIndex;
       canAnswer = true;
-      showFeedback('info', `Next: choose ${questions[nextIndex].text}, then ${questions[nextIndex].answer}`);
+      showFeedback('info', `Keyingi misol: ${questions[nextIndex].text}. Javobni tanlang: ${questions[nextIndex].answer}`);
     }
 
     function showFeedback(type, text) {
@@ -419,7 +417,7 @@
       currentIndex = 4;
       selectedQuestion = null;
       canAnswer = false;
-      showFeedback('info', 'Choose 6+5, then choose 11 🚀');
+      showFeedback('info', '6+5 ni tanlang, keyin 11 ni bosing 🚀');
       render();
     }
 
